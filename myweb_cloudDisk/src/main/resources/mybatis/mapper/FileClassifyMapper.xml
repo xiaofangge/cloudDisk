@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fang.mapper.FileClassifyMapper">
+    <resultMap id="BaseResultMap" type="com.fang.pojo.FileClassify">
+        <!--@mbg.generated-->
+        <!--@Table file_classify-->
+        <id column="classify_id" jdbcType="BIGINT" property="classifyId"/>
+        <result column="type_id" jdbcType="INTEGER" property="typeId"/>
+        <result column="extend_name" jdbcType="VARCHAR" property="extendName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        classify_id, type_id, extend_name
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from file_classify
+        where classify_id = #{classifyId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from file_classify
+        where classify_id = #{classifyId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="classify_id" keyProperty="classifyId" parameterType="com.fang.pojo.FileClassify"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into file_classify (type_id, extend_name)
+        values (#{typeId,jdbcType=INTEGER}, #{extendName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="classify_id" keyProperty="classifyId"
+            parameterType="com.fang.pojo.FileClassify" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into file_classify
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="typeId != null">
+                type_id,
+            </if>
+            <if test="extendName != null">
+                extend_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="typeId != null">
+                #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="extendName != null">
+                #{extendName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fang.pojo.FileClassify">
+        <!--@mbg.generated-->
+        update file_classify
+        <set>
+            <if test="typeId != null">
+                type_id = #{typeId,jdbcType=INTEGER},
+            </if>
+            <if test="extendName != null">
+                extend_name = #{extendName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where classify_id = #{classifyId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fang.pojo.FileClassify">
+        <!--@mbg.generated-->
+        update file_classify
+        set type_id     = #{typeId,jdbcType=INTEGER},
+            extend_name = #{extendName,jdbcType=VARCHAR}
+        where classify_id = #{classifyId,jdbcType=BIGINT}
+    </update>
+
+    <select id="getFileExtends" resultType="java.lang.String">
+        select extend_name from file_classify where type_id = #{fileType};
+    </select>
+</mapper>

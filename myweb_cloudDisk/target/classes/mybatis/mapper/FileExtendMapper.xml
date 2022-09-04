@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fang.mapper.FileExtendMapper">
+    <resultMap id="BaseResultMap" type="com.fang.pojo.FileExtend">
+        <!--@mbg.generated-->
+        <!--@Table file_extend-->
+        <id column="extend_id" jdbcType="INTEGER" property="extendId"/>
+        <result column="extend_name" jdbcType="VARCHAR" property="extendName"/>
+        <result column="extend_desc" jdbcType="VARCHAR" property="extendDesc"/>
+        <result column="extend_img_url" jdbcType="VARCHAR" property="extendImgUrl"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        extend_id, extend_name, extend_desc, extend_img_url
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from file_extend
+        where extend_id = #{extendId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete
+        from file_extend
+        where extend_id = #{extendId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="extend_id" keyProperty="extendId" parameterType="com.fang.pojo.FileExtend"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into file_extend (extend_name, extend_desc, extend_img_url)
+        values (#{extendName,jdbcType=VARCHAR}, #{extendDesc,jdbcType=VARCHAR}, #{extendImgUrl,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="extend_id" keyProperty="extendId" parameterType="com.fang.pojo.FileExtend"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into file_extend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="extendName != null">
+                extend_name,
+            </if>
+            <if test="extendDesc != null">
+                extend_desc,
+            </if>
+            <if test="extendImgUrl != null">
+                extend_img_url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="extendName != null">
+                #{extendName,jdbcType=VARCHAR},
+            </if>
+            <if test="extendDesc != null">
+                #{extendDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="extendImgUrl != null">
+                #{extendImgUrl,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fang.pojo.FileExtend">
+        <!--@mbg.generated-->
+        update file_extend
+        <set>
+            <if test="extendName != null">
+                extend_name = #{extendName,jdbcType=VARCHAR},
+            </if>
+            <if test="extendDesc != null">
+                extend_desc = #{extendDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="extendImgUrl != null">
+                extend_img_url = #{extendImgUrl,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where extend_id = #{extendId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fang.pojo.FileExtend">
+        <!--@mbg.generated-->
+        update file_extend
+        set extend_name    = #{extendName,jdbcType=VARCHAR},
+            extend_desc    = #{extendDesc,jdbcType=VARCHAR},
+            extend_img_url = #{extendImgUrl,jdbcType=VARCHAR}
+        where extend_id = #{extendId,jdbcType=INTEGER}
+    </update>
+</mapper>

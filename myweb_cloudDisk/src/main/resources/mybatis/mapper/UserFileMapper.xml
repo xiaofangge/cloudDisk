@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fang.mapper.UserFileMapper">
+    <resultMap id="BaseResultMap" type="com.fang.pojo.UserFile">
+        <!--@mbg.generated-->
+        <!--@Table user_file-->
+        <id column="user_file_id" jdbcType="BIGINT" property="userFileId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="file_id" jdbcType="BIGINT" property="fileId"/>
+        <result column="file_name" jdbcType="VARCHAR" property="fileName"/>
+        <result column="file_path" jdbcType="VARCHAR" property="filePath"/>
+        <result column="extend_name" jdbcType="VARCHAR" property="extendName"/>
+        <result column="is_dir" jdbcType="BOOLEAN" property="isDir"/>
+        <result column="upload_time" jdbcType="TIMESTAMP" property="uploadTime"/>
+        <result column="delete_flag" jdbcType="BOOLEAN" property="deleteFlag"/>
+        <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime"/>
+        <result column="delete_num" jdbcType="VARCHAR" property="deleteNum"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        user_file_id, user_id, file_id, file_name, file_path, extend_name, is_dir, upload_time,
+        delete_flag, delete_time, delete_num
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from user_file
+        where user_file_id = #{userFileId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from user_file
+        where user_file_id = #{userFileId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="user_file_id" keyProperty="userFileId" parameterType="com.fang.pojo.UserFile"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into user_file (user_id, file_id, file_name,
+                               file_path, extend_name, is_dir,
+                               upload_time, delete_flag, delete_time,
+                               delete_num)
+        values (#{userId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, #{fileName,jdbcType=VARCHAR},
+                #{filePath,jdbcType=VARCHAR}, #{extendName,jdbcType=VARCHAR}, #{isDir,jdbcType=BOOLEAN},
+                #{uploadTime,jdbcType=TIMESTAMP}, #{deleteFlag,jdbcType=BOOLEAN}, #{deleteTime,jdbcType=TIMESTAMP},
+                #{deleteNum,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="user_file_id" keyProperty="userFileId"
+            parameterType="com.fang.pojo.UserFile" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into user_file
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="fileId != null">
+                file_id,
+            </if>
+            <if test="fileName != null">
+                file_name,
+            </if>
+            <if test="filePath != null">
+                file_path,
+            </if>
+            <if test="extendName != null">
+                extend_name,
+            </if>
+            <if test="isDir != null">
+                is_dir,
+            </if>
+            <if test="uploadTime != null">
+                upload_time,
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag,
+            </if>
+            <if test="deleteTime != null">
+                delete_time,
+            </if>
+            <if test="deleteNum != null">
+                delete_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="fileId != null">
+                #{fileId,jdbcType=BIGINT},
+            </if>
+            <if test="fileName != null">
+                #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="extendName != null">
+                #{extendName,jdbcType=VARCHAR},
+            </if>
+            <if test="isDir != null">
+                #{isDir,jdbcType=BOOLEAN},
+            </if>
+            <if test="uploadTime != null">
+                #{uploadTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteFlag != null">
+                #{deleteFlag,jdbcType=BOOLEAN},
+            </if>
+            <if test="deleteTime != null">
+                #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteNum != null">
+                #{deleteNum,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fang.pojo.UserFile">
+        <!--@mbg.generated-->
+        update user_file
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="fileId != null">
+                file_id = #{fileId,jdbcType=BIGINT},
+            </if>
+            <if test="fileName != null">
+                file_name = #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="filePath != null">
+                file_path = #{filePath,jdbcType=VARCHAR},
+            </if>
+            <if test="extendName != null">
+                extend_name = #{extendName,jdbcType=VARCHAR},
+            </if>
+            <if test="isDir != null">
+                is_dir = #{isDir,jdbcType=BOOLEAN},
+            </if>
+            <if test="uploadTime != null">
+                upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag,jdbcType=BOOLEAN},
+            </if>
+            <if test="deleteTime != null">
+                delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteNum != null">
+                delete_num = #{deleteNum,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_file_id = #{userFileId,jdbcType=BIGINT} and delete_flag = 0;
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fang.pojo.UserFile">
+        <!--@mbg.generated-->
+        update user_file
+        set user_id     = #{userId,jdbcType=BIGINT},
+            file_id     = #{fileId,jdbcType=BIGINT},
+            file_name   = #{fileName,jdbcType=VARCHAR},
+            file_path   = #{filePath,jdbcType=VARCHAR},
+            extend_name = #{extendName,jdbcType=VARCHAR},
+            is_dir      = #{isDir,jdbcType=BOOLEAN},
+            upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+            delete_flag = #{deleteFlag,jdbcType=BOOLEAN},
+            delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+            delete_num  = #{deleteNum,jdbcType=VARCHAR}
+        where user_file_id = #{userFileId,jdbcType=BIGINT}
+    </update>
+
+    <select id="isDirExist" resultType="java.lang.Integer">
+        select 1
+        from user_file
+        where user_id = #{userId}
+        and file_name = #{fileName}
+        and file_path = #{filePath}
+        and is_dir = 1
+        and delete_flag = 0;
+    </select>
+
+    <select id="userFileList" resultType="com.fang.common.vo.UserFileListVo">
+        select
+            f.file_id, f.file_url, f.file_size, f.timestamp_name, f.point_count, f.identifier,
+            f.storage_type, uf.user_file_id, uf.user_id, uf.file_name, uf.file_path, uf.extend_name,
+            uf.is_dir, uf.upload_time, uf.delete_flag, uf.delete_time, uf.delete_num
+        from user_file uf
+        left join file f on uf.file_id = f.file_id
+        <where>
+            <if test="userFile.userId != null">
+                and uf.user_id = #{userFile.userId}
+            </if>
+            <if test="userFile.filePath != null">
+                and uf.file_path = #{userFile.filePath}
+            </if>
+            <if test="userFile.extendName">
+                and uf.extend_name = #{userFile.extendName}
+            </if>
+            and uf.delete_flag = 0
+        </where>
+        order by is_dir desc limit #{beginCount}, #{pageCount};
+    </select>
+
+    <select id="userFileListCount" resultType="java.lang.Long">
+        select count(*)
+        from user_file uf
+        left join file f on uf.file_id = f.file_id
+        <where>
+            <if test="userId != null">
+                and uf.user_id = #{userId}
+            </if>
+            <if test="filePath != null">
+                and uf.file_path like concat('%', #{filePath}, '%')
+            </if>
+            and uf.delete_flag = 0
+        </where>
+    </select>
+
+    <select id="userFileListByType" resultType="com.fang.common.vo.UserFileListVo">
+        select
+                f.file_id, f.file_url, f.file_size, f.timestamp_name, f.point_count, f.identifier,
+                f.storage_type, uf.user_file_id, uf.user_id, uf.file_name, uf.file_path, uf.extend_name,
+                uf.is_dir, uf.upload_time, uf.delete_flag, uf.delete_time, uf.delete_num
+        from user_file uf
+        left join file f on uf.file_id = f.file_id
+        <where>
+            <if test="userFile.userId != null">
+                uf.user_id = #{userFile.userId}
+            </if>
+            <if test="userFile.filePath != null">
+                and uf.file_path = #{userFile.filePath}
+            </if>
+            <if test="userFile.extendName != null">
+                and uf.extend_name = #{userFile.extendName}
+            </if>
+            <if test="userFile.userFileId != null">
+                and uf.user_file_id = #{userFile.userFileId}
+            </if>
+            <if test="userFile.fileName != null">
+                and uf.file_name = #{userFile.fileName}
+            </if>
+            <if test="fileType != null">
+                <choose>
+                    <when test="fileType != 5">
+                        and extend_name in (
+                        select extend_name from file_classify where type_id = #{fileType})
+                    </when>
+                    <otherwise>
+                        and extend_name not in (
+                        select extend_name from file_classify where type_id = #{fileType})
+                    </otherwise>
+                </choose>
+                and uf.is_dir = 0
+            </if>
+            and uf.delete_flag = 0
+        </where>
+        order by uf.is_dir limit #{beginCount}, #{pageCount};
+    </select>
+
+    <select id="selectFileListLikeFilePath" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from user_file where user_id = #{tokenUserId}
+        and file_path like concat(#{filePath}, '%') and delete_flag = 0;
+    </select>
+
+    <update id="updateFilePathByFilePath">
+        update user_file set
+        file_path = replace(file_path, #{oldFilePath}, #{newFilePath})
+        where
+        file_path like concat(#{oldFilePath}, '%') and user_id = #{userId};
+    </update>
+
+    <select id="selectFileTreeByUserId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from user_file where user_id = #{userId} and is_dir = 1;
+    </select>
+
+    <update id="updateFile">
+        update user_file set file_path = #{newFilePath}
+        where
+        file_path = #{oldFilePath}
+        and file_name = #{fileName}
+        and user_id = #{userId}
+        and extend_name = #{extendName};
+    </update>
+
+    <update id="updateDir">
+        update user_file set file_path = #{newFilePath}
+        where
+        file_path = #{oldFilePath}
+        and file_name = #{fileName}
+        and user_id = #{userId}
+        and extend_name is null;
+    </update>
+
+    <update id="replaceFilePath">
+        update user_file set file_path = replace(file_path, #{oldFilePath}, #{newFilePath})
+        where
+        file_path like concat(#{oldFilePath}, '%') and user_id = #{userId};
+    </update>
+
+    <select id="selectUserFileByNameAndPath" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from user_file where file_name = #{fileName}
+        and file_path = #{filePath}
+        and user_id = #{userId}
+        and delete_flag = 0;
+    </select>
+
+    <select id="selectStorageSizeByUserId" resultType="java.lang.Long">
+        select sum(file_size) from user_file
+        left join file on file.file_id = user_file.file_id
+        where user_file.user_id = #{userId} and user_file.delete_flag = 0;
+    </select>
+</mapper>

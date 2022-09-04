@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fang.mapper.RecoveryFileMapper">
+  <resultMap id="BaseResultMap" type="com.fang.pojo.RecoveryFile">
+    <!--@mbg.generated-->
+    <!--@Table recovery_file-->
+    <id column="recovery_file_id" jdbcType="BIGINT" property="recoveryFileId" />
+    <result column="user_file_id" jdbcType="BIGINT" property="userFileId" />
+    <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime" />
+    <result column="delete_batch_num" jdbcType="VARCHAR" property="deleteBatchNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    recovery_file_id, user_file_id, delete_time, delete_batch_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from recovery_file
+    where recovery_file_id = #{recoveryFileId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from recovery_file
+    where recovery_file_id = #{recoveryFileId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="recovery_file_id" keyProperty="recoveryFileId" parameterType="com.fang.pojo.RecoveryFile" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into recovery_file (user_file_id, delete_time, delete_batch_num
+      )
+    values (#{userFileId,jdbcType=BIGINT}, #{deleteTime,jdbcType=TIMESTAMP}, #{deleteBatchNum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="recovery_file_id" keyProperty="recoveryFileId" parameterType="com.fang.pojo.RecoveryFile" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into recovery_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userFileId != null">
+        user_file_id,
+      </if>
+      <if test="deleteTime != null">
+        delete_time,
+      </if>
+      <if test="deleteBatchNum != null">
+        delete_batch_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userFileId != null">
+        #{userFileId,jdbcType=BIGINT},
+      </if>
+      <if test="deleteTime != null">
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteBatchNum != null">
+        #{deleteBatchNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fang.pojo.RecoveryFile">
+    <!--@mbg.generated-->
+    update recovery_file
+    <set>
+      <if test="userFileId != null">
+        user_file_id = #{userFileId,jdbcType=BIGINT},
+      </if>
+      <if test="deleteTime != null">
+        delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteBatchNum != null">
+        delete_batch_num = #{deleteBatchNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where recovery_file_id = #{recoveryFileId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fang.pojo.RecoveryFile">
+    <!--@mbg.generated-->
+    update recovery_file
+    set user_file_id = #{userFileId,jdbcType=BIGINT},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      delete_batch_num = #{deleteBatchNum,jdbcType=VARCHAR}
+    where recovery_file_id = #{recoveryFileId,jdbcType=BIGINT}
+  </update>
+</mapper>
