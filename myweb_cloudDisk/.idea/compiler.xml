@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="myweb_cloudDisk" target="8" />
+      <module name="myweb_cloudDisk" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
