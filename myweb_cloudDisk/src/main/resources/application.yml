@@ -21,6 +21,18 @@ spring:
       initial-size: 10        # 启动程序时，在连接池中初始化多少个连接
       max-active: 20          # 连接池中最多支持多少个活动会话
       max-wait: 500000        # 程序向连接池中请求连接时，超过max-wait的值后，认为本次请求失败
+  redis:
+    password: test
+    database: 2
+    host: localhost
+    port: 6379
+    # 连接池配置
+    jedis:
+      pool:
+        max-active: 8 # 最大可用连接数（默认为8，负数表示无限）
+        max-idle: 8   # 最大空闲连接数（默认为8，负数表示无限）
+        min-idle: 0   # 最小空闲连接数（默认为0，该值只有为正数才有用）
+        max-wait: -1  # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

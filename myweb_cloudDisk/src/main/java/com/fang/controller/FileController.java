@@ -1,8 +1,11 @@
 package com.fang.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.fang.common.cache.RedisCacheEnum;
 import com.fang.common.dto.CreateFileDto;
 import com.fang.common.dto.UserFileListDto;
+import com.fang.common.enums.DeletedEnum;
 import com.fang.common.vo.R;
 import com.fang.common.vo.UserFileListVo;
 import com.fang.file.dto.*;
@@ -11,6 +14,7 @@ import com.fang.pojo.User;
 import com.fang.pojo.UserFile;
 import com.fang.service.UserFileService;
 import com.fang.service.UserService;
+import com.fang.utils.RedisUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 川川
@@ -57,7 +62,7 @@ public class FileController {
         userFile.setFileName(createFileDto.getFileName());
         userFile.setFilePath(createFileDto.getFilePath());
         userFile.setIsDir(createFileDto.getIsDir());
-        userFile.setDeleteFlag(false);
+        userFile.setDeleteFlag(DeletedEnum.NON_DELETED.getDeleteBool());
         userFile.setUploadTime(new Date());
 
         userFileService.save(userFile);
@@ -135,8 +140,16 @@ public class FileController {
         if (userByToken == null) {
             return R.fail().message("token认证失败");
         }
-        userFile.setUserId(userByToken.getUserId());
-        List<UserFile> filePathList = userFileService.selectFilePathTreeByUserId(userByToken.getUserId());
+        List<UserFile> filePathList = null;
+        if (RedisUtil.KeyOps.hasKey(RedisCacheEnum.FILE_TREE.getValue() + ":" + userByToken.getUserId())) {
+            String filePathString = RedisUtil.StringOps.get(RedisCacheEnum.FILE_TREE.getValue() + ":" + userByToken.getUserId());
+            filePathList = JSONArray.parseArray(filePathString, UserFile.class);
+        } else {
+            userFile.setUserId(userByToken.getUserId());
+            filePathList = userFileService.selectFilePathTreeByUserId(userByToken.getUserId());
+            RedisUtil.StringOps.setEx(RedisCacheEnum.FILE_TREE.getValue() + ":" + userByToken.getUserId(),
+                    filePathList.toString(), RedisCacheEnum.FILE_TREE.getTime(), TimeUnit.SECONDS);
+        }
 
         TreeNodeVo resultTreeNode = new TreeNodeVo();
         resultTreeNode.setLabel("/");

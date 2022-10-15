@@ -1,5 +1,6 @@
 package com.fang.service.impl;
 
+import com.fang.common.enums.DeletedEnum;
 import com.fang.common.vo.UserFileListVo;
 import com.fang.mapper.RecoveryFileMapper;
 import com.fang.mapper.UserFileMapper;
@@ -134,7 +135,7 @@ public class UserFileServiceImpl implements UserFileService {
         String uuid = UUID.randomUUID().toString();
 
         if (userFileDB.getIsDir()) { // 如果是目录
-            userFileDB.setDeleteFlag(true);
+            userFileDB.setDeleteFlag(DeletedEnum.DELETED.getDeleteBool());
             userFileDB.setDeleteTime(currentDateTime);
             userFileDB.setDeleteNum(uuid);
             userFileMapper.updateByPrimaryKeySelective(userFileDB);
@@ -142,7 +143,7 @@ public class UserFileServiceImpl implements UserFileService {
             String filePath = userFileDB.getFilePath() + userFileDB.getFileName() + "/";
             updateFileDeleteStateByFilePath(tokenUserId, currentDateTime, filePath, uuid);
         } else { // 如果是文件
-            userFileDB.setDeleteFlag(true);
+            userFileDB.setDeleteFlag(DeletedEnum.DELETED.getDeleteBool());
             userFileDB.setDeleteTime(currentDateTime);
             userFileDB.setDeleteNum(uuid);
             userFileMapper.updateByPrimaryKeySelective(userFileDB);
@@ -171,7 +172,7 @@ public class UserFileServiceImpl implements UserFileService {
                 executor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        userFile.setDeleteFlag(true);
+                        userFile.setDeleteFlag(DeletedEnum.DELETED.getDeleteBool());
                         userFile.setDeleteTime(currentDateTime);
                         userFile.setDeleteNum(uuid);
                         userFileMapper.updateByPrimaryKey(userFile);

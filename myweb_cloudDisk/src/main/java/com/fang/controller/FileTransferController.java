@@ -1,5 +1,8 @@
 package com.fang.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.fang.common.cache.RedisCacheEnum;
+import com.fang.common.enums.DeletedEnum;
 import com.fang.common.exception.file.UploadGeneralException;
 import com.fang.common.vo.R;
 import com.fang.common.vo.StorageVo;
@@ -12,6 +15,7 @@ import com.fang.pojo.Storage;
 import com.fang.pojo.User;
 import com.fang.pojo.UserFile;
 import com.fang.service.*;
+import com.fang.utils.RedisUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 川川
@@ -82,7 +88,7 @@ public class FileTransferController {
                 userFile.setExtendName(fileUtil.getFileExtendName(fileName));
                 userFile.setIsDir(false);
                 userFile.setUploadTime(new Date());
-                userFile.setDeleteFlag(false);
+                userFile.setDeleteFlag(DeletedEnum.NON_DELETED.getDeleteBool());
 
                 userFileService.save(userFile);
 
@@ -123,14 +129,30 @@ public class FileTransferController {
         if (userByToken == null) {
             return R.fail().message("token未认证");
         }
-        Long storageSize = fileTransferService.selectStorageSizeByUserId(userByToken.getUserId());
+        String storageSize;
+        if (RedisUtil.KeyOps.hasKey(RedisCacheEnum.USER_STORAGE_SIZE.getValue() + ":" + userByToken.getUserId())) {
+            storageSize = RedisUtil.StringOps.get(RedisCacheEnum.USER_STORAGE_SIZE.getValue() + ":" + userByToken.getUserId());
+        } else {
+            storageSize = String.valueOf(fileTransferService.selectStorageSizeByUserId(userByToken.getUserId()));
+            RedisUtil.StringOps.setEx(RedisCacheEnum.USER_STORAGE_SIZE.getValue() + ":" + userByToken.getUserId(),
+                    storageSize, RedisCacheEnum.USER_STORAGE_SIZE.getTime(), TimeUnit.SECONDS);
+        }
 
-        Storage storageInfo = storageService.getStorageInfo(userByToken.getUserId());
+
+        Storage storageInfo = null;
+        if (RedisUtil.KeyOps.hasKey(RedisCacheEnum.USER_STORAGE_INFO.getValue() + ":" + userByToken.getUserId())) {
+            String storageInfoString = RedisUtil.StringOps.get(RedisCacheEnum.USER_STORAGE_INFO.getValue() + ":" + userByToken.getUserId());
+            storageInfo = JSON.parseObject(storageInfoString, Storage.class);
+        } else {
+            storageInfo = storageService.getStorageInfo(userByToken.getUserId());
+            RedisUtil.StringOps.setEx(RedisCacheEnum.USER_STORAGE_INFO.getValue() + ":" + userByToken.getUserId(),
+                    JSON.toJSONString(storageInfo), RedisCacheEnum.USER_STORAGE_INFO.getTime(), TimeUnit.SECONDS);
+        }
 
         StorageVo storageVo = new StorageVo();
-        storageVo.setUserId(userByToken.getUserId());
-        storageVo.setStorageSize(storageSize == null ? 0L : storageSize);
-        storageVo.setTotalStorageSize(storageInfo.getTotalSize());
+        storageVo.setUserId(String.valueOf(userByToken.getUserId()));
+        storageVo.setStorageSize(storageSize == null ? String.valueOf(0L) : storageSize);
+        storageVo.setTotalStorageSize(String.valueOf(Objects.requireNonNull(storageInfo).getTotalSize()));
         return R.success().data(storageVo);
     }
 

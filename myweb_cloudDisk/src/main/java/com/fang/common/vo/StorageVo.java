@@ -12,11 +12,11 @@ import lombok.Data;
 public class StorageVo {
 
     @Schema(description = "用户id")
-    private Long userId;
+    private String userId;
 
     @Schema(description = "已用存储大小")
-    private Long storageSize;
+    private String storageSize;
 
     @Schema(description = "总存储大小")
-    private Long totalStorageSize;
+    private String totalStorageSize;
 }

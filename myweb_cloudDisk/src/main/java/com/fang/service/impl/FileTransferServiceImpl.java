@@ -1,5 +1,7 @@
 package com.fang.service.impl;
 
+import com.fang.common.enums.DeletedEnum;
+import com.fang.common.enums.StatusEnum;
 import com.fang.common.exception.file.UploadGeneralException;
 import com.fang.file.dto.DownloadFileDto;
 import com.fang.file.dto.UploadFileDto;
@@ -85,7 +87,7 @@ public class FileTransferServiceImpl implements FileTransferService {
                 file.setFileSize(uploadFile.getFileSize());
                 file.setFileUrl(uploadFile.getUrl());
                 file.setPointCount(1);
-                file.setFileStatus(true);
+                file.setFileStatus(StatusEnum.STATUS.getStatusBool());
                 file.setCreateTime(currentDate);
                 file.setCreateUserId(userId);
                 fileMapper.insertSelective(file);
@@ -98,7 +100,7 @@ public class FileTransferServiceImpl implements FileTransferService {
                 userFile.setFilePath(uploadFileDto.getFilePath());
                 userFile.setIsDir(false);
                 userFile.setUploadTime(currentDate);
-                userFile.setDeleteFlag(false);
+                userFile.setDeleteFlag(DeletedEnum.NON_DELETED.getDeleteBool());
                 userFileMapper.insertSelective(userFile);
             }
         }
