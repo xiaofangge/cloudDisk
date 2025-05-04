@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fang.mapper.OperationLogMapper">
+    <resultMap id="BaseResultMap" type="com.fang.pojo.OperationLog">
+        <!--@mbg.generated-->
+        <!--@Table operation_log-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+        <result column="operation" jdbcType="VARCHAR" property="operation"/>
+        <result column="method" jdbcType="VARCHAR" property="method"/>
+        <result column="params" jdbcType="LONGVARCHAR" property="params"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="request_url" jdbcType="VARCHAR" property="requestUrl"/>
+        <result column="request_time" jdbcType="TIMESTAMP" property="requestTime"/>
+        <result column="request_way" jdbcType="VARCHAR" property="requestWay"/>
+        <result column="request_status" jdbcType="BOOLEAN" property="requestStatus"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, user_id, message, `operation`, `method`, params, ip, `location`, request_url,
+        request_time, request_way, request_status
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from operation_log
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from operation_log
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.fang.pojo.OperationLog"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into operation_log (user_id, message, `operation`,
+                                   `method`, params, ip,
+                                   `location`, request_url, request_time,
+                                   request_way, request_status)
+        values (#{userId,jdbcType=BIGINT}, #{message,jdbcType=VARCHAR}, #{operation,jdbcType=VARCHAR},
+                #{method,jdbcType=VARCHAR}, #{params,jdbcType=LONGVARCHAR}, #{ip,jdbcType=VARCHAR},
+                #{location,jdbcType=VARCHAR}, #{requestUrl,jdbcType=VARCHAR}, #{requestTime,jdbcType=TIMESTAMP},
+                #{requestWay,jdbcType=VARCHAR}, #{requestStatus,jdbcType=BOOLEAN})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.fang.pojo.OperationLog"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into operation_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="message != null">
+                message,
+            </if>
+            <if test="operation != null">
+                `operation`,
+            </if>
+            <if test="method != null">
+                `method`,
+            </if>
+            <if test="params != null">
+                params,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="location != null">
+                `location`,
+            </if>
+            <if test="requestUrl != null">
+                request_url,
+            </if>
+            <if test="requestTime != null">
+                request_time,
+            </if>
+            <if test="requestWay != null">
+                request_way,
+            </if>
+            <if test="requestStatus != null">
+                request_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="message != null">
+                #{message,jdbcType=VARCHAR},
+            </if>
+            <if test="operation != null">
+                #{operation,jdbcType=VARCHAR},
+            </if>
+            <if test="method != null">
+                #{method,jdbcType=VARCHAR},
+            </if>
+            <if test="params != null">
+                #{params,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="requestUrl != null">
+                #{requestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="requestTime != null">
+                #{requestTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="requestWay != null">
+                #{requestWay,jdbcType=VARCHAR},
+            </if>
+            <if test="requestStatus != null">
+                #{requestStatus,jdbcType=BOOLEAN},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fang.pojo.OperationLog">
+        <!--@mbg.generated-->
+        update operation_log
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="message != null">
+                message = #{message,jdbcType=VARCHAR},
+            </if>
+            <if test="operation != null">
+                `operation` = #{operation,jdbcType=VARCHAR},
+            </if>
+            <if test="method != null">
+                `method` = #{method,jdbcType=VARCHAR},
+            </if>
+            <if test="params != null">
+                params = #{params,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="ip != null">
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                `location` = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="requestUrl != null">
+                request_url = #{requestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="requestTime != null">
+                request_time = #{requestTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="requestWay != null">
+                request_way = #{requestWay,jdbcType=VARCHAR},
+            </if>
+            <if test="requestStatus != null">
+                request_status = #{requestStatus,jdbcType=BOOLEAN},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fang.pojo.OperationLog">
+        <!--@mbg.generated-->
+        update operation_log
+        set user_id        = #{userId,jdbcType=BIGINT},
+            message        = #{message,jdbcType=VARCHAR},
+            `operation`    = #{operation,jdbcType=VARCHAR},
+            `method`       = #{method,jdbcType=VARCHAR},
+            params         = #{params,jdbcType=LONGVARCHAR},
+            ip             = #{ip,jdbcType=VARCHAR},
+            `location`     = #{location,jdbcType=VARCHAR},
+            request_url    = #{requestUrl,jdbcType=VARCHAR},
+            request_time   = #{requestTime,jdbcType=TIMESTAMP},
+            request_way    = #{requestWay,jdbcType=VARCHAR},
+            request_status = #{requestStatus,jdbcType=BOOLEAN}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

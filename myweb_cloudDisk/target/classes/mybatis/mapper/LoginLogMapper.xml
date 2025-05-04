@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fang.mapper.LoginLogMapper">
+    <resultMap id="BaseResultMap" type="com.fang.pojo.LoginLog">
+        <!--@mbg.generated-->
+        <!--@Table login_log-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
+        <result column="logout_time" jdbcType="TIMESTAMP" property="logoutTime"/>
+        <result column="login_ip" jdbcType="VARCHAR" property="loginIp"/>
+        <result column="login_location" jdbcType="VARCHAR" property="loginLocation"/>
+        <result column="browser" jdbcType="VARCHAR" property="browser"/>
+        <result column="os" jdbcType="VARCHAR" property="os"/>
+        <result column="status" jdbcType="BOOLEAN" property="status"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, user_id, login_time, logout_time, login_ip, login_location, browser, os, `status`
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from login_log
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from login_log
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.fang.pojo.LoginLog" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into login_log (user_id, login_time, logout_time,
+                               login_ip, login_location, browser,
+                               os, `status`)
+        values (#{userId,jdbcType=BIGINT}, #{loginTime,jdbcType=TIMESTAMP}, #{logoutTime,jdbcType=TIMESTAMP},
+                #{loginIp,jdbcType=VARCHAR}, #{loginLocation,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR},
+                #{os,jdbcType=VARCHAR}, #{status,jdbcType=BOOLEAN})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.fang.pojo.LoginLog"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into login_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="loginTime != null">
+                login_time,
+            </if>
+            <if test="logoutTime != null">
+                logout_time,
+            </if>
+            <if test="loginIp != null">
+                login_ip,
+            </if>
+            <if test="loginLocation != null">
+                login_location,
+            </if>
+            <if test="browser != null">
+                browser,
+            </if>
+            <if test="os != null">
+                os,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="loginTime != null">
+                #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logoutTime != null">
+                #{logoutTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginIp != null">
+                #{loginIp,jdbcType=VARCHAR},
+            </if>
+            <if test="loginLocation != null">
+                #{loginLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="browser != null">
+                #{browser,jdbcType=VARCHAR},
+            </if>
+            <if test="os != null">
+                #{os,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=BOOLEAN},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fang.pojo.LoginLog">
+        <!--@mbg.generated-->
+        update login_log
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="logoutTime != null">
+                logout_time = #{logoutTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="loginIp != null">
+                login_ip = #{loginIp,jdbcType=VARCHAR},
+            </if>
+            <if test="loginLocation != null">
+                login_location = #{loginLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="browser != null">
+                browser = #{browser,jdbcType=VARCHAR},
+            </if>
+            <if test="os != null">
+                os = #{os,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=BOOLEAN},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fang.pojo.LoginLog">
+        <!--@mbg.generated-->
+        update login_log
+        set user_id        = #{userId,jdbcType=BIGINT},
+            login_time     = #{loginTime,jdbcType=TIMESTAMP},
+            logout_time    = #{logoutTime,jdbcType=TIMESTAMP},
+            login_ip       = #{loginIp,jdbcType=VARCHAR},
+            login_location = #{loginLocation,jdbcType=VARCHAR},
+            browser        = #{browser,jdbcType=VARCHAR},
+            os             = #{os,jdbcType=VARCHAR},
+            `status`       = #{status,jdbcType=BOOLEAN}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

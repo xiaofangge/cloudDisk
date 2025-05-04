@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fang.mapper.FileMapper">
+    <resultMap id="BaseResultMap" type="com.fang.pojo.File">
+        <!--@mbg.generated-->
+        <!--@Table `file`-->
+        <id column="file_id" jdbcType="BIGINT" property="fileId"/>
+        <result column="file_size" jdbcType="BIGINT" property="fileSize"/>
+        <result column="file_url" jdbcType="VARCHAR" property="fileUrl"/>
+        <result column="timestamp_name" jdbcType="VARCHAR" property="timestampName"/>
+        <result column="identifier" jdbcType="VARCHAR" property="identifier"/>
+        <result column="point_count" jdbcType="INTEGER" property="pointCount" />
+        <result column="file_status" jdbcType="BOOLEAN" property="fileStatus"/>
+        <result column="storage_type" jdbcType="INTEGER" property="storageType"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user_id" jdbcType="BIGINT" property="createUserId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        file_id, file_size, file_url, timestamp_name, identifier, file_status, storage_type,
+        create_time, create_user_id, point_count
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from `file`
+        where file_id = #{fileId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from `file`
+        where file_id = #{fileId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="file_id" keyProperty="fileId" parameterType="com.fang.pojo.File"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into `file` (file_size, file_url, timestamp_name,
+                            identifier, file_status, storage_type,
+                            create_time, create_user_id, point_count)
+        values (#{fileSize,jdbcType=BIGINT}, #{fileUrl,jdbcType=VARCHAR}, #{timestampName,jdbcType=VARCHAR},
+                #{identifier,jdbcType=VARCHAR}, #{fileStatus,jdbcType=BOOLEAN}, #{storageType,jdbcType=INTEGER},
+                #{createTime,jdbcType=TIMESTAMP}, #{createUserId,jdbcType=BIGINT}, #{pointCount,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" keyColumn="file_id" keyProperty="fileId" parameterType="com.fang.pojo.File"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into `file`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileSize != null">
+                file_size,
+            </if>
+            <if test="fileUrl != null">
+                file_url,
+            </if>
+            <if test="timestampName != null">
+                timestamp_name,
+            </if>
+            <if test="identifier != null">
+                identifier,
+            </if>
+            <if test="pointCount != null">
+                point_count,
+            </if>
+            <if test="fileStatus != null">
+                file_status,
+            </if>
+            <if test="storageType != null">
+                storage_type,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="fileSize != null">
+                #{fileSize,jdbcType=BIGINT},
+            </if>
+            <if test="fileUrl != null">
+                #{fileUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="timestampName != null">
+                #{timestampName,jdbcType=VARCHAR},
+            </if>
+            <if test="identifier != null">
+                #{identifier,jdbcType=VARCHAR},
+            </if>
+            <if test="pointCount != null">
+                #{pointCount,jdbcType=INTEGER},
+            </if>
+            <if test="fileStatus != null">
+                #{fileStatus,jdbcType=BOOLEAN},
+            </if>
+            <if test="storageType != null">
+                #{storageType,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fang.pojo.File">
+        <!--@mbg.generated-->
+        update `file`
+        <set>
+            <if test="fileSize != null">
+                file_size = #{fileSize,jdbcType=BIGINT},
+            </if>
+            <if test="fileUrl != null">
+                file_url = #{fileUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="timestampName != null">
+                timestamp_name = #{timestampName,jdbcType=VARCHAR},
+            </if>
+            <if test="identifier != null">
+                identifier = #{identifier,jdbcType=VARCHAR},
+            </if>
+            <if test="pointCount != null">
+                point_count = #{pointCount,jdbcType=INTEGER},
+            </if>
+            <if test="fileStatus != null">
+                file_status = #{fileStatus,jdbcType=BOOLEAN},
+            </if>
+            <if test="storageType != null">
+                storage_type = #{storageType,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=BIGINT},
+            </if>
+        </set>
+        where file_id = #{fileId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fang.pojo.File">
+        <!--@mbg.generated-->
+        update `file`
+        set file_size      = #{fileSize,jdbcType=BIGINT},
+            file_url       = #{fileUrl,jdbcType=VARCHAR},
+            timestamp_name = #{timestampName,jdbcType=VARCHAR},
+            identifier     = #{identifier,jdbcType=VARCHAR},
+            point_count    = #{pointCount,jdbcType=INTEGER},
+            file_status    = #{fileStatus,jdbcType=BOOLEAN},
+            storage_type   = #{storageType,jdbcType=INTEGER},
+            create_time    = #{createTime,jdbcType=TIMESTAMP},
+            create_user_id = #{createUserId,jdbcType=BIGINT}
+        where file_id = #{fileId,jdbcType=BIGINT}
+    </update>
+
+    <select id="listByIdentfer" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from file where identifier = #{identifier};
+    </select>
+</mapper>

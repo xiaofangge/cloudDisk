@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fang.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.fang.pojo.User">
+        <!--@mbg.generated-->
+        <!--@Table `user`-->
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="telephone" jdbcType="CHAR" property="telephone"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="register_time" jdbcType="TIMESTAMP" property="registerTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        user_id, username, telephone, `password`, salt, avatar, register_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from `user`
+        where user_id = #{userId,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from `user`
+        where user_id = #{userId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.fang.pojo.User"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into `user` (username, telephone, `password`,
+                            salt, avatar, register_time)
+        values (#{username,jdbcType=VARCHAR}, #{telephone,jdbcType=CHAR}, #{password,jdbcType=VARCHAR},
+                #{salt,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="com.fang.pojo.User"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into `user`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="password != null">
+                `password`,
+            </if>
+            <if test="salt != null">
+                salt,
+            </if>
+            <if test="avatar != null">
+                avatar,
+            </if>
+            <if test="registerTime != null">
+                register_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=CHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="registerTime != null">
+                #{registerTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fang.pojo.User">
+        <!--@mbg.generated-->
+        update `user`
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=CHAR},
+            </if>
+            <if test="password != null">
+                `password` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salt != null">
+                salt = #{salt,jdbcType=VARCHAR},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar,jdbcType=VARCHAR},
+            </if>
+            <if test="registerTime != null">
+                register_time = #{registerTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fang.pojo.User">
+        <!--@mbg.generated-->
+        update `user`
+        set username      = #{username,jdbcType=VARCHAR},
+            telephone     = #{telephone,jdbcType=CHAR},
+            `password`    = #{password,jdbcType=VARCHAR},
+            salt          = #{salt,jdbcType=VARCHAR},
+            avatar        = #{avatar,jdbcType=VARCHAR},
+            register_time = #{registerTime,jdbcType=TIMESTAMP}
+        where user_id = #{userId,jdbcType=BIGINT}
+    </update>
+
+    <select id="existsByPhone" resultType="java.lang.Integer">
+        select 1
+        from user
+        where telephone = #{telephone}
+        limit 1;
+    </select>
+
+    <select id="getUserByPhone" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from user where telephone = #{telephone};
+    </select>
+</mapper>

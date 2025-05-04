@@ -1,0 +1,63 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: 个人云网盘
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://localhost:3306/myweb_clouddisk?serverTimezone=Asia/Shanghai&characterEncoding=utf-8&useSSL=true&useUnicode=true # url
+      username: root          # 用户名
+      password: EUqGOawMgKmgKKRG5HVEird32h2eC8yrm6y8K7uobOk7j9/TITvAd9DhogF+GNHiI9mlBUoE0kXBSl2MCpyY8A== # 加密过的密码
+      filters: config         # 配置插件
+      connect-properties:
+        config.decrypt: true
+        config.decrypt.key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAINDfzOHzv4jKWxqV438btUNUXy8X2I0DEWzYRwzc6z295XOoieUgFdmpTv7/qK+1COXFkjTq/HSIpLyWjXGxAkCAwEAAQ== # 公钥
+      validation-query: select 1
+      test-while-idle: true   # 当程序请求连接，池在分配连接时，是否先检查该连接是否有效
+      test-on-borrow: true    # 程序申请连接时，进行连接有效性检查（低效，影响性能）
+      test-on-return: true    # 程序返还连接时，进行连接有效性检查（低效，影响性能）
+      initial-size: 10        # 启动程序时，在连接池中初始化多少个连接
+      max-active: 20          # 连接池中最多支持多少个活动会话
+      max-wait: 500000        # 程序向连接池中请求连接时，超过max-wait的值后，认为本次请求失败
+  redis:
+    password: test
+    database: 2
+    host: localhost
+    port: 6379
+    # 连接池配置
+    jedis:
+      pool:
+        max-active: 8 # 最大可用连接数（默认为8，负数表示无限）
+        max-idle: 8   # 最大空闲连接数（默认为8，负数表示无限）
+        min-idle: 0   # 最小空闲连接数（默认为0，该值只有为正数才有用）
+        max-wait: -1  # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+  # 上传下载配置。SpringBoot默认会限制文件上传大小2MB，超过该大小的文件都会上传失败
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+
+# 文件存储类型（全部）
+file:
+  storage-type: 0
+
+mybatis:
+  type-aliases-package: com.fang.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:/mybatis/mapper/*.xml
+
+
+
+
+
+
+
